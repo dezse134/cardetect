@@ -1,6 +1,6 @@
 FROM python:3.12-alpine
 
-COPY hello.py /root/
+COPY cardetect.py haarcascade_cars.xml /usr/src/
 
 ENTRYPOINT [ "python" ]
-CMD [ "/root/hello.py" ]
+CMD [ "/usr/src/cardetect.py" ]
