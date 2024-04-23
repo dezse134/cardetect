@@ -1,6 +1,7 @@
 FROM python:3.12-alpine
 
-COPY cardetect.py haarcascade_cars.xml /usr/src/
-
 ENTRYPOINT [ "python" ]
-CMD [ "/usr/src/cardetect.py" ]
+
+COPY cardetect.py haarcascade_cars.xml requirements.txt /usr/src/cardetect/
+RUN pip install --no-cache-dir --progress-bar=off -r requirements.txt
+CMD [ "/usr/src/cardetect/cardetect.py" ]
