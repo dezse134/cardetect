@@ -1,8 +1,9 @@
 """Module for detecting cars on a picture"""
 
+from os import listdir
+
 import cv2
 
-from os import listdir
 if __name__ == '__main__':
 
     for file in listdir('input'):
@@ -16,7 +17,7 @@ if __name__ == '__main__':
 
         for (x,y,w,h) in cars:
             cv2.rectangle(img, (x,y), (x+w,y+h), (0, 255, 0), 2)
-        
+
         cv2.imwrite(f'output/result_{file}', img)
-        
+
         print(f'Found {len(cars):>3d} cars on {file}')
