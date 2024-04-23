@@ -1,0 +1,6 @@
+# Environments
+.venv
+
+# IO directories
+input
+output
