@@ -1,13 +1,15 @@
 """Module for detecting cars on a picture"""
 
 from os import listdir
+from os.path import join
 
 import cv2
 
-if __name__ == '__main__':
-
-    for file in listdir('input'):
-        img_name = 'input/' + file
+def detect_cars(input_folder, output_folder):
+    """Detect cars on an image"""
+    car_counts = {}
+    for f in listdir(input_folder):
+        img_name = join(input_folder, f)
 
         car_cascade = cv2.CascadeClassifier('haarcascade_cars.xml')
         img = cv2.imread(img_name)
@@ -18,6 +20,12 @@ if __name__ == '__main__':
         for (x,y,w,h) in cars:
             cv2.rectangle(img, (x,y), (x+w,y+h), (0, 255, 0), 2)
 
-        cv2.imwrite(f'output/result_{file}', img)
+        cv2.imwrite(f'{output_folder}/result_{f}', img)
+        car_counts[f] = len(cars)
 
-        print(f'Found {len(cars):>3d} cars on {file}')
+    return car_counts
+
+if __name__ == '__main__':
+    counts = detect_cars('input', 'output')
+    for file, count in counts.items():
+        print(f'Found {count:>3d} cars on {file}')
