@@ -1,0 +1,21 @@
+services:
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - output_images:/data/images
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./static:/data/www:ro
+  
+  cardetect:
+    image: gdezse/cardetect
+    ports:
+      - 5000:5000
+    environment:
+      - CARDETECT_OUTPUT_PATH=/usr/src/cardetect/output
+    volumes:
+      - output_images:/usr/src/cardetect/output
+
+volumes:
+  output_images:
