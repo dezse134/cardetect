@@ -4,3 +4,6 @@
 # IO directories
 input
 output
+
+# Python bytecode
+__pycache__
