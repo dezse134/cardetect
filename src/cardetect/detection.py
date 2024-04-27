@@ -10,8 +10,7 @@ def detect_cars(input_folder, output_folder):
     car_counts = {}
     for f in listdir(input_folder):
         img_name = join(input_folder, f)
-
-        car_cascade = cv2.CascadeClassifier('haarcascade_cars.xml')
+        car_cascade = cv2.CascadeClassifier('resources/haarcascade_cars.xml')
         img = cv2.imread(img_name)
         gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         blur_img = cv2.GaussianBlur(gray_img, (5,5), 0)
@@ -26,6 +25,6 @@ def detect_cars(input_folder, output_folder):
     return car_counts
 
 if __name__ == '__main__':
-    counts = detect_cars('input', 'output')
-    for file, count in counts.items():
-        print(f'Found {count:>3d} cars on {file}')
+    __counts = detect_cars('input', 'output')
+    for __file, __count in __counts.items():
+        print(f'Found {__count:>3d} cars on {__file}')
