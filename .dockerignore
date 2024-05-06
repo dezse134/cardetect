@@ -4,3 +4,6 @@ __pycache__
 # IO directories
 input
 output
+
+# Other modules
+admin.py
