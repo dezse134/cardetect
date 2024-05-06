@@ -1,6 +1,9 @@
+'''Message queue module'''
+
 import pika
 
 def publish_notification(desc, count):
+    '''Publish a message to admin queue'''
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(host='rabbitmq')
     )
@@ -10,5 +13,5 @@ def publish_notification(desc, count):
 
     msg = f'{count} cars with description: {desc}'
     channel.basic_publish(exchange='detections', routing_key='', body=msg)
-    
+
     connection.close()

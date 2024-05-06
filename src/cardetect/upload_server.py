@@ -31,6 +31,7 @@ def upload_file():
     return redirect(url_for('index', result=result_name))
 
 def notify(counts, desc):
+    '''Publish message to queue'''
     publish_notification(desc, list(counts.values())[0])
 
 if __name__ == '__main__':

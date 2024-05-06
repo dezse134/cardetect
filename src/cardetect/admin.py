@@ -1,3 +1,5 @@
+'''Listen to messages coming from the detection server'''
+
 from os import getenv
 
 import pika
@@ -16,7 +18,8 @@ channel.queue_bind(exchange=exchange_name, queue=queue_name)
 
 print(' [*] Waiting for logs. To exit press CTRL+C')
 
-def callback(ch, method, properties, body):
+def callback(_ch, _method, _properties, body):
+    '''Print queue messages'''
     print(f" [x] {body.decode()}")
 
 channel.basic_consume(
