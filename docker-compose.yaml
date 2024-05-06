@@ -16,6 +16,24 @@ services:
       - CARDETECT_OUTPUT_PATH=/usr/src/cardetect/output
     volumes:
       - output_images:/usr/src/cardetect/output
+  
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - 5672:5672
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+  
+  admin-log:
+    image: gdezse/cardetect-admin
+    environment:
+      - EXCHANGE_NAME=detections
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
 
 volumes:
   output_images:
