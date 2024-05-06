@@ -26,7 +26,7 @@ def upload_file():
     f.save(join(app.config['UPLOAD_FOLDER'], f.filename))
     counts = detect_cars(app.config['UPLOAD_FOLDER'], app.config['OUTPUT_FOLDER'])
     app.logger.info('%s: %s', f.filename, counts[f.filename])
-    notify(counts, '')
+    notify(counts, request.form.get('description'))
     result_name = f'result_{f.filename}'
     return redirect(url_for('index', result=result_name))
 
