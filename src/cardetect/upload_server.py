@@ -6,6 +6,7 @@ from tempfile import TemporaryDirectory
 
 from flask import Flask, redirect, request, url_for
 from detection import detect_cars
+from notification import publish_notification
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = getenv('CARDETECT_UPLOAD_PATH')
@@ -25,8 +26,12 @@ def upload_file():
     f.save(join(app.config['UPLOAD_FOLDER'], f.filename))
     counts = detect_cars(app.config['UPLOAD_FOLDER'], app.config['OUTPUT_FOLDER'])
     app.logger.info('%s: %s', f.filename, counts[f.filename])
+    notify(counts, '')
     result_name = f'result_{f.filename}'
     return redirect(url_for('index', result=result_name))
+
+def notify(counts, desc):
+    publish_notification(desc, list(counts.values())[0])
 
 if __name__ == '__main__':
     with TemporaryDirectory() as td:
