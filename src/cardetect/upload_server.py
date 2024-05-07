@@ -31,7 +31,8 @@ def upload_file():
 
 def notify(count, desc):
     '''Publish message to queue'''
-    publish_notification(desc, count)
+    msg = f'{count:3d} cars with description: {desc}'
+    publish_notification(msg)
 
 if __name__ == '__main__':
     with TemporaryDirectory() as td:
