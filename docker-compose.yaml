@@ -28,6 +28,7 @@ services:
       retries: 3
   
   admin-log:
+    scale: 2
     image: gdezse/cardetect-admin
     environment:
       - EXCHANGE_NAME=detections
