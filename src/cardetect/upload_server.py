@@ -25,14 +25,13 @@ def upload_file():
         return redirect(url_for('index'))
     f.save(join(app.config['UPLOAD_FOLDER'], f.filename))
     counts = detect_cars(app.config['UPLOAD_FOLDER'], app.config['OUTPUT_FOLDER'])
-    app.logger.info('%s: %s', f.filename, counts[f.filename])
-    notify(counts, request.form.get('description'))
+    notify(counts[f.filename], request.form.get('description'))
     result_name = f'result_{f.filename}'
     return redirect(url_for('index', result=result_name))
 
-def notify(counts, desc):
+def notify(count, desc):
     '''Publish message to queue'''
-    publish_notification(desc, list(counts.values())[0])
+    publish_notification(desc, count)
 
 if __name__ == '__main__':
     with TemporaryDirectory() as td:
