@@ -10,7 +10,7 @@ services:
   
   cardetect:
     image: gdezse/cardetect
-    ports:
+    expose:
       - 5000:5000
     environment:
       - CARDETECT_OUTPUT_PATH=/usr/src/cardetect/output
@@ -19,7 +19,7 @@ services:
   
   rabbitmq:
     image: rabbitmq
-    ports:
+    expose:
       - 5672:5672
     healthcheck:
       test: rabbitmq-diagnostics -q ping
